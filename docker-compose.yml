@@ -2,6 +2,6 @@ version: "3.9"
 
 services:
   web:
-    build: .
+    image: "vikastiwari8090/jenkins-test:latest"
     ports:
       - "5000:5000"
