@@ -1,0 +1,38 @@
+# Node modules (if using Node.js)
+node_modules/
+
+# Python virtual environments
+venv/
+__pycache__/
+
+# Logs
+*.log
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Docker
+*.pid
+*.swp
+
+# Jenkins
+*.tmp
+*.bak
+
+# Environment files
+.env
+.env.*
+
+# Build output
+dist/
+build/
+target/
+
+# IDE files
+.vscode/
+.idea/
+*.sublime-workspace
+*.sublime-project
+
+#
