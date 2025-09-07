@@ -1,23 +1,43 @@
+
+@Library("shared") _  
 pipeline {
-    agent any
-    environment {
-        DOCKERHUB_CREDENTIALS = credentials('dockerhub-creds')
-        IMAGE_NAME = "your-dockerhub-username/jenkins-docker-demo"
-    }
+    agent { label "vinod" }
+    
     stages {
-        stage('Build') {
+        stage("Greeting"){
+           steps{
+               script{
+                    greet()
+               }
+           }
+        }
+        stage('Cloning') {
             steps {
-                sh 'docker build -t $IMAGE_NAME:latest .'
+                script{
+                    cloneRepo("https://github.com/vikas809028/Jenkins-CI-CD-Deployment.git","main")
+                }
             }
         }
-        stage('Login') {
+
+        stage('Building') {
             steps {
-                sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+                script{
+                    buildImage("jenkins-test")
+                }
             }
         }
-        stage('Push') {
+
+        stage('Publish on DockerHub') {
             steps {
-                sh 'docker push $IMAGE_NAME:latest'
+                script{
+                    publishOnDockerbub("jenkins-test")
+                }
+            }
+        }
+
+        stage('Deploy Container') {
+            steps {
+                sh 'docker compose up -d'
             }
         }
     }
